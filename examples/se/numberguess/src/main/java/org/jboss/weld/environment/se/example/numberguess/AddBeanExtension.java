@@ -33,8 +33,9 @@ public class AddBeanExtension implements Extension {
         System.out.println("Another try right now!");
 
         Class[] bInterfaces = Bean.class.getInterfaces();
-        if (bInterfaces.length == 1)
+        if (bInterfaces.length == 1) {
             throw new Exception("Here will be situable exception.");
+        }
 
         after.addBean(tmpBean);
     }
