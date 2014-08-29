@@ -30,5 +30,6 @@ public class AddBeanExtension implements Extension {
     public void afterBeanDiscovery(@Observes AfterBeanDiscovery after, BeanManager beanMgr) {
         final IntegerBean tmpBean = new IntegerBean();
         after.addBean(tmpBean);
+        System.out.println("Another try ring now!");
     }
 }
