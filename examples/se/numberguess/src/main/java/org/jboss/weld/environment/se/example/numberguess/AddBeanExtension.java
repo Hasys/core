@@ -18,6 +18,7 @@ package org.jboss.weld.environment.se.example.numberguess;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AfterBeanDiscovery;
+import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 
@@ -31,22 +32,9 @@ public class AddBeanExtension implements Extension {
         final IntegerBean tmpBean = new IntegerBean();
         System.out.println("Another try right now!");
 
-        Class cl = tmpBean.getClass();
-        System.out.println(cl.toString());
-        for (Class cInterface : cl.getInterfaces()) {
-            if (cInterface.getName().endsWith("Bean")) {
-                System.out.println(cInterface.getName());
-                boolean isExtendsBeanAttributes = false;
-                for (Class beanInterfaces : cInterface.getInterfaces()) {
-                    if (beanInterfaces.getName().endsWith("BeanAttributes")) {
-                        isExtendsBeanAttributes = true;
-                    }
-                }
-                if (!isExtendsBeanAttributes) {
-                    throw new Exception("Here will be situable exception.");
-                }
-            }
-        }
+        Class[] bInterfaces = Bean.class.getInterfaces();
+        if (bInterfaces.length == 1)
+            throw new Exception("Here will be situable exception.");
 
         after.addBean(tmpBean);
     }

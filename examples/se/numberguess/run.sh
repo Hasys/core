@@ -4,9 +4,9 @@ mvn clean install
 mvn dependency:copy-dependencies
 
 TD="./target/dependency"
-#./cdi-api-1.0.jar:\
 
 java -cp \
+./cdi-api-1.0.jar:\
 ./cdi-api-1.1.jar:\
 $TD/jboss-logging-3.1.3.GA.jar:\
 $TD/guava-13.0.1.jar:\
