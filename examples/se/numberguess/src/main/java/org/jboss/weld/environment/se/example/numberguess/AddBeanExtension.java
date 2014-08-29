@@ -27,9 +27,27 @@ import javax.enterprise.inject.spi.Extension;
  */
 public class AddBeanExtension implements Extension {
 
-    public void afterBeanDiscovery(@Observes AfterBeanDiscovery after, BeanManager beanMgr) {
+    public void afterBeanDiscovery(@Observes AfterBeanDiscovery after, BeanManager beanMgr) throws Exception {
         final IntegerBean tmpBean = new IntegerBean();
+        System.out.println("Another try right now!");
+
+        Class cl = tmpBean.getClass();
+        System.out.println(cl.toString());
+        for (Class cInterface : cl.getInterfaces()) {
+            if (cInterface.getName().endsWith("Bean")) {
+                System.out.println(cInterface.getName());
+                boolean isExtendsBeanAttributes = false;
+                for (Class beanInterfaces : cInterface.getInterfaces()) {
+                    if (beanInterfaces.getName().endsWith("BeanAttributes")) {
+                        isExtendsBeanAttributes = true;
+                    }
+                }
+                if (!isExtendsBeanAttributes) {
+                    throw new Exception("Here will be situable exception.");
+                }
+            }
+        }
+
         after.addBean(tmpBean);
-        System.out.println("Another try ring now!");
     }
 }
