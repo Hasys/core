@@ -29,6 +29,8 @@ import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.enterprise.inject.spi.PassivationCapable;
 
+import org.jboss.weld.literal.DefaultLiteral;
+
 @ApplicationScoped
 public class IntegerBean implements Bean<Integer>, PassivationCapable {
 
@@ -62,7 +64,7 @@ public class IntegerBean implements Bean<Integer>, PassivationCapable {
         getQualifiersCalled = true;
         return new HashSet<Annotation>() {
             {
-                add(new DefaultLiteral());
+                add(DefaultLiteral.INSTANCE);
             }
         };
     }

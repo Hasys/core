@@ -16,13 +16,10 @@
  */
 package org.jboss.weld.environment.se.example.numberguess;
 
-import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AfterBeanDiscovery;
-import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
-import javax.enterprise.inject.spi.InjectionTarget;
 
 /**
  * @author Kirill Gaevskii
@@ -31,11 +28,7 @@ import javax.enterprise.inject.spi.InjectionTarget;
 public class AddBeanExtension implements Extension {
 
     public void afterBeanDiscovery(@Observes AfterBeanDiscovery after, BeanManager beanMgr) {
-        AnnotatedType<IntegerBean> type = beanMgr.createAnnotatedType(IntegerBean.class);
-        final InjectionTarget<IntegerBean> injectionTgt = beanMgr.createInjectionTarget(type);
-        System.err.println("Hello world");
         final IntegerBean tmpBean = new IntegerBean();
-        injectionTgt.inject(tmpBean, (CreationalContext<IntegerBean>) after);
         after.addBean(tmpBean);
     }
 }
